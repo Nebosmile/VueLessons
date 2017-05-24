@@ -65,9 +65,75 @@
         <button v-on:click="reverseMessage">Обратить порядок букв в сообщении</button>
     </div>
 
+    <div id="app-6">
+      <p>{{ message }}</p>
+      <input v-model="message">
+    </div>
+
+
+    <div id="app-7">
+      <ol>
+        <!-- Теперь мы можем передать каждому todo описание задачи, -->
+        <!-- то есть отображать данные динамически                  -->
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+      </ol>
+    </div>
+
+    <div id='app-8'>
+        <p>Выполните поиск</p>
+        <input v-model='setcolor' type="text">
+        <p>        {{result}}        </p>
+        <p v-bind:style='{color: usercolor}'>
+            Text
+        </p>
+    </div>
+
+
 
 
     <script>
+    var app8 = new Vue({
+        el: '#app-8',
+        data:{
+            setcolor:'',
+            result: 'Цвет',
+            usercolor:'none'
+        },
+        watch:{
+            setcolor: function(newselector){
+                this.resultfunc()
+            }
+        },
+        metods:{
+            resultfunc:function () {
+                this.result = "Выбраный цвет: "+this.setcolor;
+                this.usercolor = this.setcolor;
+            }
+        }
+    })
+
+
+
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+    var app7 = new Vue({
+      el: '#app-7',
+      data: {
+        groceryList: [
+          { text: 'Овощи' },
+          { text: 'Сыр' },
+          { text: 'Что там ещё люди едят?' }
+        ]
+      }
+    })
+    var app6 = new Vue({
+      el: '#app-6',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
         var app5 = new Vue({
             el: '#app-5',
             data: {
