@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <style>
         .fade-enter-active,
@@ -83,15 +84,76 @@
         <p>Выполните поиск</p>
         <input v-model='setcolor' type="text">
         <p>        {{result}}        </p>
-        <p v-bind:style='{color: usercolor}'>
+        <p v-bind:style='{backgroundColor: usercolor}'>
             Text
         </p>
+    </div>
+
+    <div id='app-9'>
+        <h1>Укажите число юзеров отображаемых в результате</h1>
+        <input v-model='set_value'>
+        <input v-on:click='GetUsers_info' value='sumbit' type="button">
+        <p>{{ count }}</p>
+
+        <table>
+            <thead>
+                <template v-if='ansver.info'>
+                    <tr>
+                        <th v-if='ansver.info[0].userId'>User Id</th>
+                        <th v-if='ansver.info[0].currency'>Currency</th>
+                        <th v-if='ansver.info[0].startDate'>Date</th>
+                    </tr>
+                </template>
+            </thead>
+            <tbody>
+                <template v-if='ansver.info' v-for='items in ansver.info'>
+                    <tr>
+                        <td v-if='items.userId'>{{items.userId}}</td>
+                        <td v-if='items.currency'>{{items.currency}}</td>
+                        <td v-if='items.startDate'>{{new Date(items.startDate)}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
     </div>
 
 
 
 
     <script>
+    var app9 = new Vue({
+        el:'#app-9',
+        data:{
+            set_value:'',
+            ansver:'',
+            count:''
+        },
+        methods:{
+            GetUsers_info:function () {
+                var appthis = this;
+                $.ajax({
+                    url:'http://autorisation.bossgs.org/interstat/dev/api.php?getCasinoUser&all&start=1&step=' + this.set_value,
+                    dataType:'JSON',
+                    type:'GET',
+                    success:function (data) {
+                        if(data.count){
+                            appthis.count='Получено записей '+ data.countOutput + ' из '+data.count;
+                            appthis.ansver = data;
+                            console.log(appthis.ansver);
+                        }else{
+                            appthis.count='Записепй не найдено';
+                        }
+
+                    }
+                })
+            },
+        }
+    })
+
+
+
+
+
     var app8 = new Vue({
         el: '#app-8',
         data:{
@@ -104,7 +166,7 @@
                 this.resultfunc()
             }
         },
-        metods:{
+        methods:{
             resultfunc:function () {
                 this.result = "Выбраный цвет: "+this.setcolor;
                 this.usercolor = this.setcolor;
