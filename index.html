@@ -100,8 +100,9 @@
                 <template v-if='ansver.info'>
                     <tr>
                         <th v-if='ansver.info[0].userId'>User Id</th>
-                        <th v-if='ansver.info[0].currency'>Currency</th>
                         <th v-if='ansver.info[0].startDate'>Date</th>
+                        <th v-if='ansver.info[0].currency'>Currency</th>
+                        <th v-if='ansver.info[0].incomeCash'>Income</th>
                     </tr>
                 </template>
             </thead>
@@ -111,16 +112,28 @@
                         <td v-if='items.userId'>{{items.userId}}</td>
                         <td v-if='items.currency'>{{items.currency}}</td>
                         <td v-if='items.startDate'>{{new Date(items.startDate)}}</td>
+                        <td v-if='items.currency'>{{items.incomeCash}}</td>
                     </tr>
                 </template>
             </tbody>
         </table>
+        <ul>
+            <li>
+                <label is='filters-component'></label>
+            </li>
+        </ul>
     </div>
 
 
 
 
     <script>
+    Vue.component('filters-component',{
+
+        template:'<label><input type="checkbox"> Фильтр2</label>',
+        props:['name']
+    })
+
     var app9 = new Vue({
         el:'#app-9',
         data:{
