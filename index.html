@@ -99,28 +99,23 @@
             <thead>
                 <template v-if='ansver.info'>
                     <tr>
-                        <th v-if='ansver.info[0].userId'>User Id</th>
-                        <th v-if='ansver.info[0].startDate'>Date</th>
-                        <th v-if='ansver.info[0].currency'>Currency</th>
-                        <th v-if='ansver.info[0].incomeCash'>Income</th>
+                        <th v-for='items in initvalue'>{{items }}</th>
                     </tr>
                 </template>
             </thead>
             <tbody>
                 <template v-if='ansver.info' v-for='items in ansver.info'>
                     <tr>
-                        <td v-if='items.userId'>{{items.userId}}</td>
-                        <td v-if='items.currency'>{{items.currency}}</td>
-                        <td v-if='items.startDate'>{{new Date(items.startDate)}}</td>
-                        <td v-if='items.currency'>{{items.incomeCash}}</td>
+                        <td v-for='(element,index) in initvalue' >{{items[index]}}</td>
                     </tr>
                 </template>
             </tbody>
         </table>
-        <ul>
-            <li>
-                <label is='filters-component'></label>
-            </li>
+        <ul v-if='ansver.info'>
+            <li v-for='items in initvalue'
+                is='filters-component'
+                v-bind:propsname='items'
+            ></li>
         </ul>
     </div>
 
@@ -129,17 +124,27 @@
 
     <script>
     Vue.component('filters-component',{
-
-        template:'<label><input type="checkbox"> Фильтр2</label>',
-        props:['name']
+        props:['propsname'],
+        template:`<li>
+                    <label><input type="checkbox"> {{propsname}}</label>
+                </li>`
     })
+
 
     var app9 = new Vue({
         el:'#app-9',
         data:{
             set_value:'',
             ansver:'',
-            count:''
+            count:'',
+            initvalue:{
+                'userId': 'User Id',
+                'startDate':'Date',
+                'currency':'Currency',
+                'incomeCash':'income Cash',
+                'incomeCoins':'income Coins',
+                'totalBetCoins':'totalBetCoins'
+            }
         },
         methods:{
             GetUsers_info:function () {

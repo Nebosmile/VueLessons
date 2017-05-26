@@ -1,0 +1,80 @@
+Microsoft Windows [Version 10.0.14393]
+(c) Корпорация Майкрософт (Microsoft Corporation), 2016. Все права защищены.
+
+C:\Users\User>vue --version
+2.8.1
+
+C:\Users\User>vue help init
+
+  Usage: vue-init <template-name> [project-name]
+
+  Options:
+
+    -h, --help   output usage information
+    -c, --clone  use git clone
+    --offline    use cached template
+
+  Examples:
+
+    # create a new project with an official template
+    $ vue init webpack my-project
+
+    # create a new project straight from a github template
+    $ vue init username/repo my-project
+
+
+C:\Users\User>mkdir test
+
+C:\Users\User>cd test
+
+C:\Users\User\test>vue help init
+
+  Usage: vue-init <template-name> [project-name]
+
+  Options:
+
+    -h, --help   output usage information
+    -c, --clone  use git clone
+    --offline    use cached template
+
+  Examples:
+
+    # create a new project with an official template
+    $ vue init webpack my-project
+
+    # create a new project straight from a github template
+    $ vue init username/repo my-project
+
+
+C:\Users\User\test>vue init webpack
+
+? Generate project in current directory? Yes
+  A newer version of vue-cli is available.
+
+  latest:    2.8.2
+  installed: 2.8.1
+
+  This will install Vue 2.x version of the template.
+
+  For Vue 1.x use: vue init webpack#1.0
+
+? Project name test
+? Project description A Vue.js project
+? Author Pavel <akulov_pavel88@mail.ru>
+? Vue build standalone
+? Install vue-router? Yes
+? Use ESLint to lint your code? No
+? Setup unit tests with Karma + Mocha? No
+? Setup e2e tests with Nightwatch? No
+
+   vue-cli · Generated "test".
+
+   To get started:
+
+     npm install
+     npm run dev
+
+   Documentation can be found at https://vuejs-templates.github.io/webpack
+
+
+C:\Users\User\test>npm i
