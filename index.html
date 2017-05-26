@@ -99,14 +99,14 @@
             <thead>
                 <template v-if='ansver.info'>
                     <tr>
-                        <th v-for='items in initvalue'>{{items.name }}</th>
+                        <th v-if='Checkstatus(items)' v-for='items in initvalue'>{{items.name }}</th>
                     </tr>
                 </template>
             </thead>
             <tbody>
                 <template v-if='ansver.info' v-for='items in ansver.info'>
                     <tr>
-                        <td v-for='(element,index) in initvalue' >{{items[index]}}</td>
+                        <td v-if='Checkstatus(element)' v-for='(element,index) in initvalue' >{{items[index]}}</td>
                     </tr>
                 </template>
             </tbody>
@@ -126,12 +126,21 @@
     Vue.component('filters-component',{
         props:['propsname'],
         template:`<li>
-                    <label><input type="checkbox" v-bind:checked="Checkstatus(propsname.status)"> {{propsname.name}}</label>
+                    <label><input type="checkbox"
+                    v-bind:checked="Checkstatus(propsname)"
+                    v-on:change="newStatus(propsname)"
+                    > {{propsname.name}}</label>
                 </li>`,
         methods:{
-            Checkstatus:function(status) {
-                if(status=='checked'){return true}
+            Checkstatus:function(obj) {
+                if(obj.status=='checked'){return true}
                 else {return false}
+            },
+            newStatus:function(obj) {
+                console.log(obj);
+                if(obj.status=='checked'){obj.status='hide'}
+                else {obj.status='checked'}
+                console.log(obj);
             }
 
         }
@@ -171,6 +180,10 @@
 
                     }
                 })
+            },
+            Checkstatus:function(obj) {
+                if(obj.status=='checked'){return true}
+                else {return false}
             },
 
         }
