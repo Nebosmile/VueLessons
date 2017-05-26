@@ -99,7 +99,7 @@
             <thead>
                 <template v-if='ansver.info'>
                     <tr>
-                        <th v-for='items in initvalue'>{{items }}</th>
+                        <th v-for='items in initvalue'>{{items.name }}</th>
                     </tr>
                 </template>
             </thead>
@@ -126,8 +126,15 @@
     Vue.component('filters-component',{
         props:['propsname'],
         template:`<li>
-                    <label><input type="checkbox"> {{propsname}}</label>
-                </li>`
+                    <label><input type="checkbox" v-bind:checked="Checkstatus(propsname.status)"> {{propsname.name}}</label>
+                </li>`,
+        methods:{
+            Checkstatus:function(status) {
+                if(status=='checked'){return true}
+                else {return false}
+            }
+
+        }
     })
 
 
@@ -138,12 +145,12 @@
             ansver:'',
             count:'',
             initvalue:{
-                'userId': 'User Id',
-                'startDate':'Date',
-                'currency':'Currency',
-                'incomeCash':'income Cash',
-                'incomeCoins':'income Coins',
-                'totalBetCoins':'totalBetCoins'
+                'userId': {name:'User Id',status:'checked',default:'1'},
+                'startDate':{name:'Date',status:'checked',default:'1'},
+                'currency':{name:'Currency',status:'checked',default:'1'},
+                'incomeCash':{name:'income Cash',status:'checked',default:'1'},
+                'incomeCoins':{name:'income Coins',status:'hide',default:'0'},
+                'totalBetCoins':{name:'totalBetCoins',status:'hide',default:'0'}
             }
         },
         methods:{
@@ -165,6 +172,7 @@
                     }
                 })
             },
+
         }
     })
 
